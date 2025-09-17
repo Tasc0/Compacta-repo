@@ -3,307 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuarryPro - Modern Mining Management Platform</title>
+    <title>QuarryPro Sales Analytics - 2025</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loading-content">
-            <div class="logo-animation">
-                <i class="fas fa-mountain"></i>
-                <span>QuarryPro</span>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1><i class="fas fa-chart-line"></i> QuarryPro Sales</h1>
             </div>
-            <div class="loading-bar">
-                <div class="loading-progress"></div>
-            </div>
+            <nav class="nav">
+                <a href="#dashboard" class="nav-link active">Dashboard</a>
+                <a href="#revenue" class="nav-link">Revenue</a>
+                <a href="#customers" class="nav-link">Customers</a>
+                <a href="#products" class="nav-link">Products</a>
+                <a href="#team" class="nav-link">Sales Team</a>
+                <a href="#pipeline" class="nav-link">Pipeline</a>
+                <a href="#forecasting" class="nav-link">Forecasting</a>
+            </nav>
         </div>
-    </div>
+    </header>
 
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <i class="fas fa-mountain brand-icon"></i>
-                <span class="brand-text">QuarryPro</span>
-            </div>
-            
-            <div class="nav-links" id="navLinks">
-                <a href="#dashboard" class="nav-link active" data-section="dashboard">
-                    <i class="fas fa-chart-pie"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="#operations" class="nav-link" data-section="operations">
-                    <i class="fas fa-cogs"></i>
-                    <span>Operations</span>
-                </a>
-                <a href="#analytics" class="nav-link" data-section="analytics">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Analytics</span>
-                </a>
-                <a href="#equipment" class="nav-link" data-section="equipment">
-                    <i class="fas fa-truck-monster"></i>
-                    <span>Equipment</span>
-                </a>
-                <a href="#safety" class="nav-link" data-section="safety">
-                    <i class="fas fa-shield-alt"></i>
-                    <span>Safety</span>
-                </a>
-            </div>
-
-            <div class="nav-actions">
-                <button class="notification-btn" id="notificationBtn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge">3</span>
-                </button>
-                <div class="user-profile" id="userProfile">
-                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" alt="Profile" class="profile-image">
-                    <span class="profile-name">John Miller</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-            </div>
-
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Dashboard Section -->
-        <section class="section active" id="dashboard">
-            <div class="section-header">
-                <h1 class="section-title">
-                    <i class="fas fa-chart-pie"></i>
-                    Dashboard Overview
-                </h1>
-                <p class="section-subtitle">Real-time mining operations monitoring and insights</p>
-            </div>
-
-            <!-- Stats Cards -->
-            <div class="stats-grid">
-                <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="stat-icon production">
-                        <i class="fas fa-industry"></i>
-                    </div>
-                    <div class="stat-content">
-                        <h3 class="stat-value" data-value="2847">0</h3>
-                        <p class="stat-label">Daily Production (tons)</p>
-                        <span class="stat-change positive">
-                            <i class="fas fa-arrow-up"></i> +12.3%
-                        </span>
-                    </div>
-                </div>
-
-                <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="stat-icon efficiency">
-                        <i class="fas fa-tachometer-alt"></i>
-                    </div>
-                    <div class="stat-content">
-                        <h3 class="stat-value" data-value="94.2">0</h3>
-                        <p class="stat-label">Efficiency Rate (%)</p>
-                        <span class="stat-change positive">
-                            <i class="fas fa-arrow-up"></i> +3.1%
-                        </span>
-                    </div>
-                </div>
-
-                <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="stat-icon equipment">
-                        <i class="fas fa-truck-monster"></i>
-                    </div>
-                    <div class="stat-content">
-                        <h3 class="stat-value" data-value="23">0</h3>
-                        <p class="stat-label">Active Equipment</p>
-                        <span class="stat-change neutral">
-                            <i class="fas fa-minus"></i> 0%
-                        </span>
-                    </div>
-                </div>
-
-                <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="stat-icon safety">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="stat-content">
-                        <h3 class="stat-value" data-value="147">0</h3>
-                        <p class="stat-label">Safety Score</p>
-                        <span class="stat-change positive">
-                            <i class="fas fa-arrow-up"></i> +5.8%
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Charts Grid -->
-            <div class="charts-grid">
-                <div class="chart-card" data-aos="fade-up" data-aos-delay="500">
-                    <div class="chart-header">
-                        <h3>Production Trends</h3>
-                        <div class="chart-controls">
-                            <button class="chart-btn active" data-period="7d">7D</button>
-                            <button class="chart-btn" data-period="30d">30D</button>
-                            <button class="chart-btn" data-period="90d">90D</button>
+    <main class="main">
+        <section id="dashboard" class="section active">
+            <div class="container">
+                <h2 class="section-title">Sales Dashboard</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-dollar-sign"></i></div>
+                        <div class="stat-content">
+                            <h3>$2.4M</h3>
+                            <p>Total Revenue</p>
+                            <span class="stat-change positive">+12.5%</span>
                         </div>
                     </div>
-                    <div class="chart-container">
-                        <canvas id="productionChart"></canvas>
-                    </div>
-                </div>
-
-                <div class="chart-card" data-aos="fade-up" data-aos-delay="600">
-                    <div class="chart-header">
-                        <h3>Equipment Status</h3>
-                        <div class="status-legend">
-                            <span class="legend-item operational"><i class="fas fa-circle"></i> Operational</span>
-                            <span class="legend-item maintenance"><i class="fas fa-circle"></i> Maintenance</span>
-                            <span class="legend-item offline"><i class="fas fa-circle"></i> Offline</span>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        <div class="stat-content">
+                            <h3>1,847</h3>
+                            <p>Active Customers</p>
+                            <span class="stat-change positive">+8.3%</span>
                         </div>
                     </div>
-                    <div class="chart-container">
-                        <canvas id="equipmentChart"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Recent Activity -->
-            <div class="activity-section" data-aos="fade-up" data-aos-delay="700">
-                <div class="section-header-small">
-                    <h3>Recent Activity</h3>
-                    <button class="view-all-btn">
-                        View All <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-                <div class="activity-list">
-                    <div class="activity-item">
-                        <div class="activity-icon success">
-                            <i class="fas fa-check"></i>
-                        </div>
-                        <div class="activity-content">
-                            <p class="activity-title">Excavator EX-001 maintenance completed</p>
-                            <p class="activity-time">2 minutes ago</p>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
+                        <div class="stat-content">
+                            <h3>432</h3>
+                            <p>Orders This Month</p>
+                            <span class="stat-change positive">+15.7%</span>
                         </div>
                     </div>
-                    <div class="activity-item">
-                        <div class="activity-icon warning">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </div>
-                        <div class="activity-content">
-                            <p class="activity-title">Low fuel alert for Dump Truck DT-007</p>
-                            <p class="activity-time">15 minutes ago</p>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon info">
-                            <i class="fas fa-info"></i>
-                        </div>
-                        <div class="activity-content">
-                            <p class="activity-title">Production target achieved for Zone A</p>
-                            <p class="activity-time">1 hour ago</p>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-percentage"></i></div>
+                        <div class="stat-content">
+                            <h3>24.8%</h3>
+                            <p>Conversion Rate</p>
+                            <span class="stat-change positive">+3.2%</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Operations Section -->
-        <section class="section" id="operations">
-            <div class="section-header">
-                <h1 class="section-title">
-                    <i class="fas fa-cogs"></i>
-                    Operations Management
-                </h1>
-                <p class="section-subtitle">Monitor and control all mining operations in real-time</p>
-            </div>
-            
-            <div class="operations-content">
-                <div class="operations-map">
-                    <h3>Site Overview</h3>
-                    <div class="map-placeholder">
-                        <i class="fas fa-map"></i>
-                        <p>Interactive Site Map</p>
+        <section id="revenue" class="section">
+            <div class="container">
+                <h2 class="section-title">Revenue Analytics</h2>
+                <div class="chart-container">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+                <div class="revenue-breakdown">
+                    <div class="breakdown-item">
+                        <h4>Quarterly Revenue</h4>
+                        <canvas id="quarterlyChart"></canvas>
+                    </div>
+                    <div class="breakdown-item">
+                        <h4>Revenue by Region</h4>
+                        <canvas id="regionChart"></canvas>
                     </div>
                 </div>
-                
-                <div class="operations-controls">
-                    <div class="control-panel">
-                        <h3>Quick Actions</h3>
-                        <button class="action-btn primary">
-                            <i class="fas fa-play"></i>
-                            Start Operations
-                        </button>
-                        <button class="action-btn secondary">
-                            <i class="fas fa-pause"></i>
-                            Pause Operations
-                        </button>
-                        <button class="action-btn danger">
-                            <i class="fas fa-stop"></i>
-                            Emergency Stop
-                        </button>
+            </div>
+        </section>
+
+        <section id="customers" class="section">
+            <div class="container">
+                <h2 class="section-title">Customer Management</h2>
+                <div class="customer-metrics">
+                    <div class="metric-card">
+                        <h3>Customer Acquisition</h3>
+                        <canvas id="acquisitionChart"></canvas>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Customer Lifetime Value</h3>
+                        <canvas id="clvChart"></canvas>
+                    </div>
+                </div>
+                <div class="customer-list">
+                    <h3>Top Customers</h3>
+                    <div class="customer-table">
+                        <div class="table-header">
+                            <span>Customer</span>
+                            <span>Revenue</span>
+                            <span>Orders</span>
+                            <span>Status</span>
+                        </div>
+                        <div class="table-row">
+                            <span>MegaCorp Industries</span>
+                            <span>$145,000</span>
+                            <span>28</span>
+                            <span class="status active">Active</span>
+                        </div>
+                        <div class="table-row">
+                            <span>BuildTech Solutions</span>
+                            <span>$98,500</span>
+                            <span>19</span>
+                            <span class="status active">Active</span>
+                        </div>
+                        <div class="table-row">
+                            <span>Construction Plus</span>
+                            <span>$76,200</span>
+                            <span>15</span>
+                            <span class="status pending">Pending</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="products" class="section">
+            <div class="container">
+                <h2 class="section-title">Product Sales Breakdown</h2>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <h3>Quarry Equipment</h3>
+                        <div class="product-stats">
+                            <canvas id="equipmentChart"></canvas>
+                        </div>
+                        <div class="product-info">
+                            <p>Revenue: $890K</p>
+                            <p>Units Sold: 234</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <h3>Software Solutions</h3>
+                        <div class="product-stats">
+                            <canvas id="softwareChart"></canvas>
+                        </div>
+                        <div class="product-info">
+                            <p>Revenue: $650K</p>
+                            <p>Licenses: 1,847</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <h3>Support Services</h3>
+                        <div class="product-stats">
+                            <canvas id="servicesChart"></canvas>
+                        </div>
+                        <div class="product-info">
+                            <p>Revenue: $320K</p>
+                            <p>Contracts: 156</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="team" class="section">
+            <div class="container">
+                <h2 class="section-title">Sales Team Performance</h2>
+                <div class="team-performance">
+                    <canvas id="teamChart"></canvas>
+                </div>
+                <div class="team-leaderboard">
+                    <h3>Top Performers This Quarter</h3>
+                    <div class="leaderboard-item">
+                        <div class="rank">1</div>
+                        <div class="performer">
+                            <h4>Sarah Mitchell</h4>
+                            <p>Senior Sales Manager</p>
+                        </div>
+                        <div class="performance">
+                            <span>$485K</span>
+                            <small>142% of target</small>
+                        </div>
+                    </div>
+                    <div class="leaderboard-item">
+                        <div class="rank">2</div>
+                        <div class="performer">
+                            <h4>Mike Rodriguez</h4>
+                            <p>Account Executive</p>
+                        </div>
+                        <div class="performance">
+                            <span>$367K</span>
+                            <small>128% of target</small>
+                        </div>
+                    </div>
+                    <div class="leaderboard-item">
+                        <div class="rank">3</div>
+                        <div class="performer">
+                            <h4>Emily Chen</h4>
+                            <p>Sales Representative</p>
+                        </div>
+                        <div class="performance">
+                            <span>$298K</span>
+                            <small>115% of target</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pipeline" class="section">
+            <div class="container">
+                <h2 class="section-title">Sales Pipeline</h2>
+                <div class="pipeline-visualization">
+                    <div class="pipeline-stage">
+                        <h3>Prospects</h3>
+                        <div class="stage-value">$1.2M</div>
+                        <div class="stage-count">45 deals</div>
+                    </div>
+                    <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="pipeline-stage">
+                        <h3>Qualified</h3>
+                        <div class="stage-value">$890K</div>
+                        <div class="stage-count">28 deals</div>
+                    </div>
+                    <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="pipeline-stage">
+                        <h3>Proposal</h3>
+                        <div class="stage-value">$645K</div>
+                        <div class="stage-count">18 deals</div>
+                    </div>
+                    <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="pipeline-stage">
+                        <h3>Closing</h3>
+                        <div class="stage-value">$420K</div>
+                        <div class="stage-count">12 deals</div>
+                    </div>
+                </div>
+                <div class="pipeline-chart">
+                    <canvas id="pipelineChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="forecasting" class="section">
+            <div class="container">
+                <h2 class="section-title">Sales Forecasting</h2>
+                <div class="forecast-container">
+                    <canvas id="forecastChart"></canvas>
+                </div>
+                <div class="forecast-metrics">
+                    <div class="forecast-card">
+                        <h3>Next Quarter Prediction</h3>
+                        <div class="forecast-value">$2.8M</div>
+                        <div class="forecast-confidence">87% confidence</div>
+                    </div>
+                    <div class="forecast-card">
+                        <h3>Year-End Projection</h3>
+                        <div class="forecast-value">$9.6M</div>
+                        <div class="forecast-confidence">82% confidence</div>
+                    </div>
+                    <div class="forecast-card">
+                        <h3>Growth Rate</h3>
+                        <div class="forecast-value">18.5%</div>
+                        <div class="forecast-confidence">YoY increase</div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Floating Action Button -->
-    <div class="fab-container">
-        <button class="fab" id="fab">
-            <i class="fas fa-plus"></i>
-        </button>
-        <div class="fab-menu" id="fabMenu">
-            <button class="fab-item" data-action="add-equipment">
-                <i class="fas fa-truck"></i>
-                <span>Add Equipment</span>
-            </button>
-            <button class="fab-item" data-action="create-report">
-                <i class="fas fa-file-alt"></i>
-                <span>Create Report</span>
-            </button>
-            <button class="fab-item" data-action="schedule-maintenance">
-                <i class="fas fa-tools"></i>
-                <span>Schedule Maintenance</span>
-            </button>
-        </div>
-    </div>
-
-    <!-- Notification Panel -->
-    <div class="notification-panel" id="notificationPanel">
-        <div class="notification-header">
-            <h3>Notifications</h3>
-            <button class="close-btn" id="closeNotifications">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="notification-list">
-            <div class="notification-item unread">
-                <div class="notification-icon warning">
-                    <i class="fas fa-exclamation-triangle"></i>
-                </div>
-                <div class="notification-content">
-                    <p class="notification-title">Equipment Maintenance Due</p>
-                    <p class="notification-message">Excavator EX-003 requires scheduled maintenance</p>
-                    <p class="notification-time">10 minutes ago</p>
-                </div>
-            </div>
-            <div class="notification-item">
-                <div class="notification-icon success">
-                    <i class="fas fa-check"></i>
-                </div>
-                <div class="notification-content">
-                    <p class="notification-title">Production Goal Achieved</p>
-                    <p class="notification-message">Daily production target exceeded by 15%</p>
-                    <p class="notification-time">2 hours ago</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
