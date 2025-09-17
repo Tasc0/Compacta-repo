@@ -1,515 +1,627 @@
-// Quarry Management System JavaScript
-class QuarryManager {
-    constructor() {
-        this.initializeApp();
-        this.loadSampleData();
-        this.initializeCharts();
-        this.bindEvents();
+// Modern QuarryPro 2025 JavaScript
+
+class QuarryProApp {
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    this.setupEventListeners();
+    this.initializeAnimations();
+    this.initializeCharts();
+    this.setupNavigation();
+    this.handleLoading();
+    this.initializeCounters();
+    this.setupNotifications();
+    this.setupFAB();
+  }
+
+  setupEventListeners() {
+    // Navigation
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', (e) => this.handleNavigation(e));
+    });
+
+    // Mobile menu
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    if (mobileMenuBtn) {
+      mobileMenuBtn.addEventListener('click', () => this.toggleMobileMenu());
     }
 
-    initializeApp() {
-        // Initialize Lucide icons
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
-        }
-
-        // Set default dates
-        const today = new Date();
-        const startOfYear = new Date(today.getFullYear(), 0, 1);
-        
-        document.getElementById('startDate').value = startOfYear.toISOString().split('T')[0];
-        document.getElementById('endDate').value = today.toISOString().split('T')[0];
-        
-        if (document.getElementById('reportStartDate')) {
-            document.getElementById('reportStartDate').value = startOfYear.toISOString().split('T')[0];
-            document.getElementById('reportEndDate').value = today.toISOString().split('T')[0];
-        }
+    // User profile
+    const userProfile = document.getElementById('userProfile');
+    if (userProfile) {
+      userProfile.addEventListener('click', () => this.toggleUserMenu());
     }
 
-    loadSampleData() {
-        this.productionData = [
-            { date: '2024-01-01', material: 'limestone', quantity: 2450, grade: 'A', shift: 'morning', supervisor: 'John Smith' },
-            { date: '2024-01-02', material: 'granite', quantity: 1890, grade: 'B', shift: 'afternoon', supervisor: 'Sarah Johnson' },
-            { date: '2024-01-03', material: 'sandstone', quantity: 3200, grade: 'A', shift: 'night', supervisor: 'Mike Wilson' },
-            { date: '2024-01-04', material: 'limestone', quantity: 2800, grade: 'A', shift: 'morning', supervisor: 'John Smith' },
-            { date: '2024-01-05', material: 'granite', quantity: 2100, grade: 'B', shift: 'afternoon', supervisor: 'Sarah Johnson' }
-        ];
-
-        this.recentActivities = [
-            { time: '09:15 AM', activity: 'Production Started', status: 'Active', details: 'Limestone quarrying began in Zone A' },
-            { time: '08:45 AM', activity: 'Equipment Check', status: 'Completed', details: 'Daily inspection of Excavator CAT-320' },
-            { time: '08:30 AM', activity: 'Shift Handover', status: 'Completed', details: 'Morning shift briefing completed' },
-            { time: '08:00 AM', activity: 'Safety Briefing', status: 'Completed', details: 'Daily safety meeting with all personnel' },
-            { time: '07:45 AM', activity: 'Weather Check', status: 'Completed', details: 'Weather conditions suitable for operations' }
-        ];
-
-        this.loadRecentActivities();
-        this.loadProductionTable();
+    // Notification button
+    const notificationBtn = document.getElementById('notificationBtn');
+    if (notificationBtn) {
+      notificationBtn.addEventListener('click', () => this.toggleNotifications());
     }
 
-    loadRecentActivities() {
-        const tbody = document.getElementById('recentActivities');
-        if (!tbody) return;
-
-        tbody.innerHTML = this.recentActivities.map(activity => `
-            <tr>
-                <td>${activity.time}</td>
-                <td>${activity.activity}</td>
-                <td><span class="status ${activity.status.toLowerCase()}">${activity.status}</span></td>
-                <td>${activity.details}</td>
-            </tr>
-        `).join('');
+    // Close notifications
+    const closeNotifications = document.getElementById('closeNotifications');
+    if (closeNotifications) {
+      closeNotifications.addEventListener('click', () => this.closeNotifications());
     }
 
-    loadProductionTable() {
-        const tbody = document.getElementById('productionTable');
-        if (!tbody) return;
+    // Chart controls
+    document.querySelectorAll('.chart-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => this.handleChartPeriodChange(e));
+    });
 
-        tbody.innerHTML = this.productionData.map(item => `
-            <tr>
-                <td>${new Date(item.date).toLocaleDateString()}</td>
-                <td>${item.material.charAt(0).toUpperCase() + item.material.slice(1)}</td>
-                <td>${item.quantity.toLocaleString()} tonnes</td>
-                <td>Grade ${item.grade}</td>
-                <td>${item.shift.charAt(0).toUpperCase() + item.shift.slice(1)}</td>
-                <td>${item.supervisor}</td>
-                <td>
-                    <button class="btn-secondary" onclick="editProduction()">Edit</button>
-                    <button class="btn-danger" onclick="deleteProduction()">Delete</button>
-                </td>
-            </tr>
-        `).join('');
-    }
+    // Window events
+    window.addEventListener('scroll', () => this.handleScroll());
+    window.addEventListener('resize', () => this.handleResize());
 
-    initializeCharts() {
-        this.initProductionChart();
-        this.initRevenueChart();
-        this.initMaterialChart();
-        this.initEquipmentChart();
-    }
+    // FAB actions
+    document.querySelectorAll('.fab-item').forEach(item => {
+      item.addEventListener('click', (e) => this.handleFABAction(e));
+    });
+  }
 
-    initProductionChart() {
-        const ctx = document.getElementById('productionChart');
-        if (!ctx) return;
-
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                datasets: [{
-                    label: 'Production (tonnes)',
-                    data: [65000, 72000, 68000, 75000, 70000, 73500],
-                    borderColor: '#3498db',
-                    backgroundColor: 'rgba(52, 152, 219, 0.1)',
-                    borderWidth: 3,
-                    fill: true,
-                    tension: 0.4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return value.toLocaleString() + 't';
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    initRevenueChart() {
-        const ctx = document.getElementById('revenueChart');
-        if (!ctx) return;
-
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                datasets: [{
-                    label: 'Revenue ($)',
-                    data: [13000000, 14400000, 13600000, 15000000, 14000000, 14700000],
-                    backgroundColor: '#27ae60',
-                    borderColor: '#219a52',
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return '$' + (value / 1000000).toFixed(1) + 'M';
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    initMaterialChart() {
-        const ctx = document.getElementById('materialChart');
-        if (!ctx) return;
-
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Limestone', 'Granite', 'Sandstone'],
-                datasets: [{
-                    data: [45, 30, 25],
-                    backgroundColor: ['#3498db', '#e74c3c', '#f39c12'],
-                    borderColor: ['#2980b9', '#c0392b', '#e67e22'],
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                    }
-                }
-            }
-        });
-    }
-
-    initEquipmentChart() {
-        const ctx = document.getElementById('equipmentChart');
-        if (!ctx) return;
-
-        new Chart(ctx, {
-            type: 'radar',
-            data: {
-                labels: ['Excavator', 'Crusher', 'Loader', 'Drill', 'Truck'],
-                datasets: [{
-                    label: 'Utilization %',
-                    data: [95, 0, 88, 92, 85],
-                    borderColor: '#9b59b6',
-                    backgroundColor: 'rgba(155, 89, 182, 0.2)',
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    r: {
-                        beginAtZero: true,
-                        max: 100,
-                        ticks: {
-                            stepSize: 20
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    bindEvents() {
-        // Navigation
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.showSection(link.getAttribute('href').substring(1));
-                
-                // Update active nav link
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                link.classList.add('active');
-            });
-        });
-
-        // Mobile menu toggle
-        const mobileToggle = document.querySelector('.mobile-menu-toggle');
-        const navMenu = document.querySelector('.nav-menu');
-        
-        if (mobileToggle && navMenu) {
-            mobileToggle.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-            });
-        }
-
-        // Form submissions
-        this.bindFormEvents();
-
-        // Window click events for modals
-        window.addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal')) {
-                e.target.style.display = 'none';
-            }
-        });
-    }
-
-    bindFormEvents() {
-        // Production form
-        const productionForm = document.querySelector('#productionModal form');
-        if (productionForm) {
-            productionForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                this.saveProductionEntry();
-            });
-        }
-
-        // Equipment form
-        const equipmentForm = document.querySelector('#equipmentModal form');
-        if (equipmentForm) {
-            equipmentForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                this.saveEquipment();
-            });
-        }
-
-        // Incident form
-        const incidentForm = document.querySelector('#incidentModal form');
-        if (incidentForm) {
-            incidentForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                this.saveIncident();
-            });
-        }
-    }
-
-    showSection(sectionId) {
-        document.querySelectorAll('.section').forEach(section => {
-            section.classList.remove('active');
-        });
-        
-        const targetSection = document.getElementById(sectionId);
-        if (targetSection) {
-            targetSection.classList.add('active');
-        }
-    }
-
-    saveProductionEntry() {
-        const formData = {
-            date: document.getElementById('prodDate').value,
-            material: document.getElementById('materialType').value,
-            quantity: parseInt(document.getElementById('quantity').value),
-            grade: document.getElementById('qualityGrade').value,
-            shift: document.getElementById('shift').value,
-            supervisor: document.getElementById('supervisor').value
-        };
-
-        this.productionData.unshift(formData);
-        this.loadProductionTable();
-        this.closeModal('productionModal');
-        this.showNotification('Production entry saved successfully!', 'success');
-        
-        // Reset form
-        document.querySelector('#productionModal form').reset();
-    }
-
-    saveEquipment() {
-        const formData = {
-            name: document.getElementById('equipmentName').value,
-            type: document.getElementById('equipmentType').value,
-            model: document.getElementById('equipmentModel').value,
-            purchaseDate: document.getElementById('purchaseDate').value,
-            serviceInterval: document.getElementById('serviceInterval').value
-        };
-
-        console.log('Equipment saved:', formData);
-        this.closeModal('equipmentModal');
-        this.showNotification('Equipment added successfully!', 'success');
-        
-        // Reset form
-        document.querySelector('#equipmentModal form').reset();
-    }
-
-    saveIncident() {
-        const formData = {
-            date: document.getElementById('incidentDate').value,
-            severity: document.getElementById('severityLevel').value,
-            location: document.getElementById('incidentLocation').value,
-            description: document.getElementById('incidentDescription').value,
-            personnel: document.getElementById('personnelInvolved').value
-        };
-
-        console.log('Incident reported:', formData);
-        this.closeModal('incidentModal');
-        this.showNotification('Safety incident reported successfully!', 'warning');
-        
-        // Reset form
-        document.querySelector('#incidentModal form').reset();
-    }
-
-    showNotification(message, type = 'info') {
-        const notification = document.createElement('div');
-        notification.className = `notification notification-${type}`;
-        notification.innerHTML = `
-            <span>${message}</span>
-            <button onclick="this.parentElement.remove()">&times;</button>
-        `;
-        
-        document.body.appendChild(notification);
-        
+  handleLoading() {
+    // Simulate app loading
+    setTimeout(() => {
+      const loadingScreen = document.getElementById('loadingScreen');
+      if (loadingScreen) {
+        loadingScreen.classList.add('hidden');
+        // Remove from DOM after animation
         setTimeout(() => {
-            notification.remove();
-        }, 5000);
-    }
+          loadingScreen.remove();
+        }, 500);
+      }
+    }, 2000);
+  }
 
-    openModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.style.display = 'block';
+  setupNavigation() {
+    const hash = window.location.hash.substring(1) || 'dashboard';
+    this.showSection(hash);
+  }
+
+  handleNavigation(e) {
+    e.preventDefault();
+    const section = e.currentTarget.getAttribute('data-section');
+    
+    // Update active nav link
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.remove('active');
+    });
+    e.currentTarget.classList.add('active');
+
+    // Show section
+    this.showSection(section);
+    
+    // Update URL
+    window.history.pushState({}, '', `#${section}`);
+  }
+
+  showSection(sectionId) {
+    document.querySelectorAll('.section').forEach(section => {
+      section.classList.remove('active');
+    });
+    
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+      targetSection.classList.add('active');
+      this.animateSection(targetSection);
+    }
+  }
+
+  animateSection(section) {
+    const cards = section.querySelectorAll('[data-aos]');
+    cards.forEach((card, index) => {
+      setTimeout(() => {
+        card.style.animation = 'slideInRight 0.6s ease-out forwards';
+      }, index * 100);
+    });
+  }
+
+  handleScroll() {
+    const navbar = document.getElementById('navbar');
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  }
+
+  handleResize() {
+    // Handle responsive behavior
+    if (window.innerWidth > 768) {
+      this.closeMobileMenu();
+    }
+  }
+
+  toggleMobileMenu() {
+    const navLinks = document.getElementById('navLinks');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    
+    navLinks.classList.toggle('mobile-active');
+    mobileMenuBtn.classList.toggle('active');
+  }
+
+  closeMobileMenu() {
+    const navLinks = document.getElementById('navLinks');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    
+    navLinks.classList.remove('mobile-active');
+    mobileMenuBtn.classList.remove('active');
+  }
+
+  toggleUserMenu() {
+    // Implementation for user menu dropdown
+    console.log('User menu toggled');
+  }
+
+  initializeCounters() {
+    const counters = document.querySelectorAll('.stat-value');
+    
+    const observerOptions = {
+      threshold: 0.7
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          this.animateCounter(entry.target);
+          observer.unobserve(entry.target);
         }
+      });
+    }, observerOptions);
+
+    counters.forEach(counter => observer.observe(counter));
+  }
+
+  animateCounter(element) {
+    const target = parseFloat(element.getAttribute('data-value'));
+    const duration = 2000;
+    const increment = target / (duration / 16);
+    let current = 0;
+
+    const updateCounter = () => {
+      current += increment;
+      if (current < target) {
+        element.textContent = Math.floor(current).toLocaleString();
+        requestAnimationFrame(updateCounter);
+      } else {
+        element.textContent = target.toLocaleString();
+      }
+    };
+
+    updateCounter();
+  }
+
+  initializeCharts() {
+    this.initProductionChart();
+    this.initEquipmentChart();
+  }
+
+  initProductionChart() {
+    const canvas = document.getElementById('productionChart');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    
+    // Sample data for production trends
+    const data = {
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      datasets: [{
+        label: 'Production (tons)',
+        data: [2400, 2800, 2600, 3200, 2900, 2700, 2847],
+        borderColor: '#667eea',
+        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+        borderWidth: 3,
+        fill: true,
+        tension: 0.4
+      }]
+    };
+
+    this.drawLineChart(ctx, data);
+  }
+
+  initEquipmentChart() {
+    const canvas = document.getElementById('equipmentChart');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    
+    // Sample data for equipment status
+    const data = {
+      labels: ['Operational', 'Maintenance', 'Offline'],
+      datasets: [{
+        data: [18, 4, 1],
+        backgroundColor: ['#4ade80', '#fbbf24', '#f87171'],
+        borderWidth: 0
+      }]
+    };
+
+    this.drawDoughnutChart(ctx, data);
+  }
+
+  drawLineChart(ctx, data) {
+    const canvas = ctx.canvas;
+    const { width, height } = canvas;
+    
+    ctx.clearRect(0, 0, width, height);
+    
+    // Simple line chart implementation
+    const padding = 40;
+    const chartWidth = width - padding * 2;
+    const chartHeight = height - padding * 2;
+    
+    const max = Math.max(...data.datasets[0].data);
+    const min = Math.min(...data.datasets[0].data);
+    const range = max - min;
+    
+    // Draw grid lines
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+    ctx.lineWidth = 1;
+    
+    for (let i = 0; i <= 5; i++) {
+      const y = padding + (chartHeight / 5) * i;
+      ctx.beginPath();
+      ctx.moveTo(padding, y);
+      ctx.lineTo(width - padding, y);
+      ctx.stroke();
+    }
+    
+    // Draw data line
+    ctx.strokeStyle = '#667eea';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    
+    data.datasets[0].data.forEach((value, index) => {
+      const x = padding + (chartWidth / (data.datasets[0].data.length - 1)) * index;
+      const y = height - padding - ((value - min) / range) * chartHeight;
+      
+      if (index === 0) {
+        ctx.moveTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
+      }
+    });
+    
+    ctx.stroke();
+    
+    // Draw data points
+    ctx.fillStyle = '#667eea';
+    data.datasets[0].data.forEach((value, index) => {
+      const x = padding + (chartWidth / (data.datasets[0].data.length - 1)) * index;
+      const y = height - padding - ((value - min) / range) * chartHeight;
+      
+      ctx.beginPath();
+      ctx.arc(x, y, 4, 0, 2 * Math.PI);
+      ctx.fill();
+    });
+  }
+
+  drawDoughnutChart(ctx, data) {
+    const canvas = ctx.canvas;
+    const { width, height } = canvas;
+    const centerX = width / 2;
+    const centerY = height / 2;
+    const radius = Math.min(width, height) / 2 - 20;
+    const innerRadius = radius * 0.6;
+    
+    ctx.clearRect(0, 0, width, height);
+    
+    const total = data.datasets[0].data.reduce((sum, value) => sum + value, 0);
+    let currentAngle = -Math.PI / 2;
+    
+    data.datasets[0].data.forEach((value, index) => {
+      const sliceAngle = (value / total) * 2 * Math.PI;
+      
+      // Draw slice
+      ctx.fillStyle = data.datasets[0].backgroundColor[index];
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, radius, currentAngle, currentAngle + sliceAngle);
+      ctx.arc(centerX, centerY, innerRadius, currentAngle + sliceAngle, currentAngle, true);
+      ctx.closePath();
+      ctx.fill();
+      
+      // Draw label
+      const labelAngle = currentAngle + sliceAngle / 2;
+      const labelRadius = radius - 30;
+      const labelX = centerX + Math.cos(labelAngle) * labelRadius;
+      const labelY = centerY + Math.sin(labelAngle) * labelRadius;
+      
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '14px Inter';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(value.toString(), labelX, labelY);
+      
+      currentAngle += sliceAngle;
+    });
+  }
+
+  handleChartPeriodChange(e) {
+    e.preventDefault();
+    
+    // Update active button
+    e.currentTarget.parentElement.querySelectorAll('.chart-btn').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    e.currentTarget.classList.add('active');
+    
+    // Refresh chart data (implementation depends on data source)
+    const period = e.currentTarget.getAttribute('data-period');
+    console.log(`Chart period changed to: ${period}`);
+    
+    // Simulate data refresh
+    setTimeout(() => {
+      this.initProductionChart();
+    }, 300);
+  }
+
+  setupNotifications() {
+    // Simulate real-time notifications
+    setInterval(() => {
+      this.addRandomNotification();
+    }, 30000); // Every 30 seconds
+  }
+
+  addRandomNotification() {
+    const notifications = [
+      {
+        type: 'warning',
+        title: 'Equipment Maintenance Due',
+        message: 'Excavator EX-005 requires scheduled maintenance',
+        icon: 'fas fa-exclamation-triangle'
+      },
+      {
+        type: 'success',
+        title: 'Production Target Met',
+        message: 'Zone B has exceeded daily production target',
+        icon: 'fas fa-check'
+      },
+      {
+        type: 'info',
+        title: 'Weather Alert',
+        message: 'Heavy rain expected in 2 hours',
+        icon: 'fas fa-cloud-rain'
+      }
+    ];
+
+    const randomNotification = notifications[Math.floor(Math.random() * notifications.length)];
+    
+    // Update notification badge
+    const badge = document.querySelector('.notification-badge');
+    if (badge) {
+      const current = parseInt(badge.textContent) || 0;
+      badge.textContent = current + 1;
     }
 
-    closeModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.style.display = 'none';
+    // Add to notification panel
+    this.addNotificationToPanel(randomNotification);
+  }
+
+  addNotificationToPanel(notification) {
+    const notificationList = document.querySelector('.notification-list');
+    if (!notificationList) return;
+
+    const notificationHtml = `
+      <div class="notification-item unread">
+        <div class="notification-icon ${notification.type}">
+          <i class="${notification.icon}"></i>
+        </div>
+        <div class="notification-content">
+          <p class="notification-title">${notification.title}</p>
+          <p class="notification-message">${notification.message}</p>
+          <p class="notification-time">Just now</p>
+        </div>
+      </div>
+    `;
+
+    notificationList.insertAdjacentHTML('afterbegin', notificationHtml);
+  }
+
+  toggleNotifications() {
+    const notificationPanel = document.getElementById('notificationPanel');
+    if (notificationPanel) {
+      notificationPanel.classList.toggle('active');
+    }
+  }
+
+  closeNotifications() {
+    const notificationPanel = document.getElementById('notificationPanel');
+    if (notificationPanel) {
+      notificationPanel.classList.remove('active');
+    }
+  }
+
+  setupFAB() {
+    const fab = document.getElementById('fab');
+    const fabMenu = document.getElementById('fabMenu');
+    
+    if (fab && fabMenu) {
+      fab.addEventListener('click', () => {
+        fabMenu.classList.toggle('active');
+      });
+
+      // Close FAB menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!fab.contains(e.target) && !fabMenu.contains(e.target)) {
+          fabMenu.classList.remove('active');
         }
+      });
     }
-}
+  }
 
-// Global functions for HTML event handlers
-function openModal(modalId) {
-    quarryManager.openModal(modalId);
-}
-
-function closeModal(modalId) {
-    quarryManager.closeModal(modalId);
-}
-
-function updateDashboard() {
-    quarryManager.showNotification('Dashboard updated successfully!', 'success');
-}
-
-function generateReport() {
-    const reportType = document.getElementById('reportType').value;
-    quarryManager.showNotification(`${reportType.charAt(0).toUpperCase() + reportType.slice(1)} report generated!`, 'info');
-}
-
-function exportReport() {
-    quarryManager.showNotification('Report exported to PDF!', 'success');
-}
-
-function editProduction() {
-    quarryManager.showNotification('Edit functionality coming soon!', 'info');
-}
-
-function deleteProduction() {
-    if (confirm('Are you sure you want to delete this production entry?')) {
-        quarryManager.showNotification('Production entry deleted!', 'success');
+  handleFABAction(e) {
+    const action = e.currentTarget.getAttribute('data-action');
+    
+    switch (action) {
+      case 'add-equipment':
+        this.showModal('Add Equipment', 'Equipment addition form would appear here');
+        break;
+      case 'create-report':
+        this.showModal('Create Report', 'Report creation form would appear here');
+        break;
+      case 'schedule-maintenance':
+        this.showModal('Schedule Maintenance', 'Maintenance scheduling form would appear here');
+        break;
     }
+
+    // Close FAB menu
+    const fabMenu = document.getElementById('fabMenu');
+    if (fabMenu) {
+      fabMenu.classList.remove('active');
+    }
+  }
+
+  showModal(title, content) {
+    // Simple modal implementation
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay';
+    modal.innerHTML = `
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>${title}</h3>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>${content}</p>
+        </div>
+        <div class="modal-footer">
+          <button class="action-btn secondary">Cancel</button>
+          <button class="action-btn primary">Confirm</button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    // Add modal styles
+    const modalStyles = `
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        animation: fadeIn 0.3s ease-out;
+      }
+      
+      .modal-content {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius-lg);
+        max-width: 500px;
+        width: 90%;
+        animation: slideInUp 0.3s ease-out;
+      }
+      
+      .modal-header {
+        padding: var(--space-xl);
+        border-bottom: 1px solid var(--glass-border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .modal-body {
+        padding: var(--space-xl);
+      }
+      
+      .modal-footer {
+        padding: var(--space-xl);
+        border-top: 1px solid var(--glass-border);
+        display: flex;
+        gap: var(--space-md);
+        justify-content: flex-end;
+      }
+      
+      .modal-close {
+        background: none;
+        border: none;
+        color: var(--muted-text);
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+      
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      
+      @keyframes slideInUp {
+        from { transform: translateY(30px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+    `;
+
+    if (!document.getElementById('modal-styles')) {
+      const styleSheet = document.createElement('style');
+      styleSheet.id = 'modal-styles';
+      styleSheet.textContent = modalStyles;
+      document.head.appendChild(styleSheet);
+    }
+
+    // Close modal functionality
+    const closeModal = () => {
+      modal.style.animation = 'fadeOut 0.3s ease-out forwards';
+      setTimeout(() => modal.remove(), 300);
+    };
+
+    modal.querySelector('.modal-close').addEventListener('click', closeModal);
+    modal.querySelector('.action-btn.secondary').addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+  }
+
+  initializeAnimations() {
+    // Initialize AOS (Animate On Scroll) alternative
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const delay = parseInt(entry.target.getAttribute('data-aos-delay')) || 0;
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }, delay);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('[data-aos]').forEach(element => {
+      element.style.opacity = '0';
+      element.style.transform = 'translateY(30px)';
+      element.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+      observer.observe(element);
+    });
+  }
 }
 
-// Initialize the application
-let quarryManager;
-document.addEventListener('DOMContentLoaded', function() {
-    quarryManager = new QuarryManager();
+// Initialize app when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  new QuarryProApp();
 });
 
-// Add some additional CSS for notifications dynamically
-const notificationStyles = `
-.notification {
-    position: fixed;
-    top: 100px;
-    right: 20px;
-    background: white;
-    padding: 1rem 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    border-left: 4px solid #3498db;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-width: 300px;
-    z-index: 3000;
-    animation: slideIn 0.3s ease-out;
-}
-
-.notification-success {
-    border-left-color: #27ae60;
-}
-
-.notification-warning {
-    border-left-color: #f39c12;
-}
-
-.notification-error {
-    border-left-color: #e74c3c;
-}
-
-.notification button {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    margin-left: 1rem;
-    color: #95a5a6;
-}
-
-.notification button:hover {
-    color: #2c3e50;
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-.status {
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: 500;
-}
-
-.status.active {
-    background: #d4edda;
-    color: #155724;
-}
-
-.status.completed {
-    background: #d1ecf1;
-    color: #0c5460;
-}
-
-.btn-danger {
-    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-    color: white;
-    padding: 0.4rem 0.8rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    margin-left: 0.5rem;
-}
-
-.btn-danger:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 10px rgba(231, 76, 60, 0.3);
-}
+// Add additional CSS animations
+const additionalStyles = `
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
 `;
 
-// Inject the notification styles
 const styleSheet = document.createElement('style');
-styleSheet.textContent = notificationStyles;
+styleSheet.textContent = additionalStyles;
 document.head.appendChild(styleSheet);
