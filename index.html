@@ -1,280 +1,287 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuarryPro Sales Analytics - 2025</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <title>Dashboard de Gestão de Pedreira 2025</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="logo">
-                <h1><i class="fas fa-chart-line"></i> QuarryPro Sales</h1>
-            </div>
-            <nav class="nav">
-                <a href="#dashboard" class="nav-link active">Dashboard</a>
-                <a href="#revenue" class="nav-link">Revenue</a>
-                <a href="#customers" class="nav-link">Customers</a>
-                <a href="#products" class="nav-link">Products</a>
-                <a href="#team" class="nav-link">Sales Team</a>
-                <a href="#pipeline" class="nav-link">Pipeline</a>
-                <a href="#forecasting" class="nav-link">Forecasting</a>
-            </nav>
-        </div>
-    </header>
-
-    <main class="main">
-        <section id="dashboard" class="section active">
-            <div class="container">
-                <h2 class="section-title">Sales Dashboard</h2>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon"><i class="fas fa-dollar-sign"></i></div>
-                        <div class="stat-content">
-                            <h3>$2.4M</h3>
-                            <p>Total Revenue</p>
-                            <span class="stat-change positive">+12.5%</span>
-                        </div>
+    <div class="dashboard-container">
+        <header class="main-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <i class="fas fa-mountain"></i>
+                    <h1>Pedreira Analytics Pro</h1>
+                </div>
+                <div class="header-controls">
+                    <div class="date-selector">
+                        <input type="date" id="startDate" value="2024-01-01">
+                        <input type="date" id="endDate" value="2024-12-31">
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon"><i class="fas fa-users"></i></div>
-                        <div class="stat-content">
-                            <h3>1,847</h3>
-                            <p>Active Customers</p>
-                            <span class="stat-change positive">+8.3%</span>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
-                        <div class="stat-content">
-                            <h3>432</h3>
-                            <p>Orders This Month</p>
-                            <span class="stat-change positive">+15.7%</span>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon"><i class="fas fa-percentage"></i></div>
-                        <div class="stat-content">
-                            <h3>24.8%</h3>
-                            <p>Conversion Rate</p>
-                            <span class="stat-change positive">+3.2%</span>
-                        </div>
-                    </div>
+                    <button class="export-btn">
+                        <i class="fas fa-download"></i> Exportar
+                    </button>
                 </div>
             </div>
-        </section>
+        </header>
 
-        <section id="revenue" class="section">
-            <div class="container">
-                <h2 class="section-title">Revenue Analytics</h2>
-                <div class="chart-container">
-                    <canvas id="revenueChart"></canvas>
-                </div>
-                <div class="revenue-breakdown">
-                    <div class="breakdown-item">
-                        <h4>Quarterly Revenue</h4>
-                        <canvas id="quarterlyChart"></canvas>
+        <main class="dashboard-main">
+            <section class="kpi-section">
+                <div class="kpi-card revenue">
+                    <div class="kpi-icon">
+                        <i class="fas fa-chart-line"></i>
                     </div>
-                    <div class="breakdown-item">
-                        <h4>Revenue by Region</h4>
-                        <canvas id="regionChart"></canvas>
+                    <div class="kpi-content">
+                        <h3>Receita Total</h3>
+                        <div class="kpi-value">R$ 2.8M</div>
+                        <div class="kpi-change positive">+12.5%</div>
                     </div>
                 </div>
-            </div>
-        </section>
+                
+                <div class="kpi-card production">
+                    <div class="kpi-icon">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3>Produção Total</h3>
+                        <div class="kpi-value">45.2K ton</div>
+                        <div class="kpi-change positive">+8.3%</div>
+                    </div>
+                </div>
 
-        <section id="customers" class="section">
-            <div class="container">
-                <h2 class="section-title">Customer Management</h2>
-                <div class="customer-metrics">
-                    <div class="metric-card">
-                        <h3>Customer Acquisition</h3>
-                        <canvas id="acquisitionChart"></canvas>
+                <div class="kpi-card roi">
+                    <div class="kpi-icon">
+                        <i class="fas fa-percentage"></i>
                     </div>
-                    <div class="metric-card">
-                        <h3>Customer Lifetime Value</h3>
-                        <canvas id="clvChart"></canvas>
+                    <div class="kpi-content">
+                        <h3>ROI Médio</h3>
+                        <div class="kpi-value">18.7%</div>
+                        <div class="kpi-change positive">+2.1%</div>
                     </div>
                 </div>
-                <div class="customer-list">
-                    <h3>Top Customers</h3>
-                    <div class="customer-table">
-                        <div class="table-header">
-                            <span>Customer</span>
-                            <span>Revenue</span>
-                            <span>Orders</span>
-                            <span>Status</span>
-                        </div>
-                        <div class="table-row">
-                            <span>MegaCorp Industries</span>
-                            <span>$145,000</span>
-                            <span>28</span>
-                            <span class="status active">Active</span>
-                        </div>
-                        <div class="table-row">
-                            <span>BuildTech Solutions</span>
-                            <span>$98,500</span>
-                            <span>19</span>
-                            <span class="status active">Active</span>
-                        </div>
-                        <div class="table-row">
-                            <span>Construction Plus</span>
-                            <span>$76,200</span>
-                            <span>15</span>
-                            <span class="status pending">Pending</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <section id="products" class="section">
-            <div class="container">
-                <h2 class="section-title">Product Sales Breakdown</h2>
-                <div class="product-grid">
-                    <div class="product-card">
-                        <h3>Quarry Equipment</h3>
-                        <div class="product-stats">
-                            <canvas id="equipmentChart"></canvas>
-                        </div>
-                        <div class="product-info">
-                            <p>Revenue: $890K</p>
-                            <p>Units Sold: 234</p>
-                        </div>
+                <div class="kpi-card cashflow">
+                    <div class="kpi-icon">
+                        <i class="fas fa-money-bill-wave"></i>
                     </div>
-                    <div class="product-card">
-                        <h3>Software Solutions</h3>
-                        <div class="product-stats">
-                            <canvas id="softwareChart"></canvas>
-                        </div>
-                        <div class="product-info">
-                            <p>Revenue: $650K</p>
-                            <p>Licenses: 1,847</p>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <h3>Support Services</h3>
-                        <div class="product-stats">
-                            <canvas id="servicesChart"></canvas>
-                        </div>
-                        <div class="product-info">
-                            <p>Revenue: $320K</p>
-                            <p>Contracts: 156</p>
-                        </div>
+                    <div class="kpi-content">
+                        <h3>Fluxo de Caixa</h3>
+                        <div class="kpi-value">R$ 485K</div>
+                        <div class="kpi-change negative">-5.2%</div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="team" class="section">
-            <div class="container">
-                <h2 class="section-title">Sales Team Performance</h2>
-                <div class="team-performance">
-                    <canvas id="teamChart"></canvas>
+            <section class="charts-section">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Estoque de Pedras</h3>
+                        <select id="inventoryPeriod">
+                            <option value="daily">Diário</option>
+                            <option value="weekly">Semanal</option>
+                            <option value="monthly">Mensal</option>
+                        </select>
+                    </div>
+                    <canvas id="inventoryChart"></canvas>
                 </div>
-                <div class="team-leaderboard">
-                    <h3>Top Performers This Quarter</h3>
-                    <div class="leaderboard-item">
-                        <div class="rank">1</div>
-                        <div class="performer">
-                            <h4>Sarah Mitchell</h4>
-                            <p>Senior Sales Manager</p>
-                        </div>
-                        <div class="performance">
-                            <span>$485K</span>
-                            <small>142% of target</small>
-                        </div>
-                    </div>
-                    <div class="leaderboard-item">
-                        <div class="rank">2</div>
-                        <div class="performer">
-                            <h4>Mike Rodriguez</h4>
-                            <p>Account Executive</p>
-                        </div>
-                        <div class="performance">
-                            <span>$367K</span>
-                            <small>128% of target</small>
-                        </div>
-                    </div>
-                    <div class="leaderboard-item">
-                        <div class="rank">3</div>
-                        <div class="performer">
-                            <h4>Emily Chen</h4>
-                            <p>Sales Representative</p>
-                        </div>
-                        <div class="performance">
-                            <span>$298K</span>
-                            <small>115% of target</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <section id="pipeline" class="section">
-            <div class="container">
-                <h2 class="section-title">Sales Pipeline</h2>
-                <div class="pipeline-visualization">
-                    <div class="pipeline-stage">
-                        <h3>Prospects</h3>
-                        <div class="stage-value">$1.2M</div>
-                        <div class="stage-count">45 deals</div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Custo de Produção por Tonelada</h3>
+                        <div class="cost-indicator">
+                            <span class="current-cost">R$ 45.80/ton</span>
+                            <span class="cost-trend positive">↓ 3.2%</span>
+                        </div>
                     </div>
-                    <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
-                    <div class="pipeline-stage">
-                        <h3>Qualified</h3>
-                        <div class="stage-value">$890K</div>
-                        <div class="stage-count">28 deals</div>
-                    </div>
-                    <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
-                    <div class="pipeline-stage">
-                        <h3>Proposal</h3>
-                        <div class="stage-value">$645K</div>
-                        <div class="stage-count">18 deals</div>
-                    </div>
-                    <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
-                    <div class="pipeline-stage">
-                        <h3>Closing</h3>
-                        <div class="stage-value">$420K</div>
-                        <div class="stage-count">12 deals</div>
-                    </div>
+                    <canvas id="productionCostChart"></canvas>
                 </div>
-                <div class="pipeline-chart">
-                    <canvas id="pipelineChart"></canvas>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="forecasting" class="section">
-            <div class="container">
-                <h2 class="section-title">Sales Forecasting</h2>
-                <div class="forecast-container">
-                    <canvas id="forecastChart"></canvas>
+            <section class="equipment-financial-section">
+                <div class="equipment-card">
+                    <div class="card-header">
+                        <h3>Depreciação de Equipamentos</h3>
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="equipment-list">
+                        <div class="equipment-item">
+                            <div class="equipment-info">
+                                <i class="fas fa-truck"></i>
+                                <span>Carregadeiras (3)</span>
+                            </div>
+                            <div class="depreciation-bar">
+                                <div class="bar-fill" style="width: 65%"></div>
+                            </div>
+                            <span class="depreciation-value">R$ 245K</span>
+                        </div>
+                        <div class="equipment-item">
+                            <div class="equipment-info">
+                                <i class="fas fa-truck-pickup"></i>
+                                <span>Caminhões (8)</span>
+                            </div>
+                            <div class="depreciation-bar">
+                                <div class="bar-fill" style="width: 45%"></div>
+                            </div>
+                            <span class="depreciation-value">R$ 180K</span>
+                        </div>
+                        <div class="equipment-item">
+                            <div class="equipment-info">
+                                <i class="fas fa-tractor"></i>
+                                <span>Escavadeiras (2)</span>
+                            </div>
+                            <div class="depreciation-bar">
+                                <div class="bar-fill" style="width: 70%"></div>
+                            </div>
+                            <span class="depreciation-value">R$ 320K</span>
+                        </div>
+                        <div class="equipment-item">
+                            <div class="equipment-info">
+                                <i class="fas fa-industry"></i>
+                                <span>Britadores (2)</span>
+                            </div>
+                            <div class="depreciation-bar">
+                                <div class="bar-fill" style="width: 55%"></div>
+                            </div>
+                            <span class="depreciation-value">R$ 125K</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="forecast-metrics">
-                    <div class="forecast-card">
-                        <h3>Next Quarter Prediction</h3>
-                        <div class="forecast-value">$2.8M</div>
-                        <div class="forecast-confidence">87% confidence</div>
-                    </div>
-                    <div class="forecast-card">
-                        <h3>Year-End Projection</h3>
-                        <div class="forecast-value">$9.6M</div>
-                        <div class="forecast-confidence">82% confidence</div>
-                    </div>
-                    <div class="forecast-card">
-                        <h3>Growth Rate</h3>
-                        <div class="forecast-value">18.5%</div>
-                        <div class="forecast-confidence">YoY increase</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
 
-    <script src="script.js"></script>
+                <div class="financial-card">
+                    <div class="card-header">
+                        <h3>ROI vs Empréstimos</h3>
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <canvas id="roiLoanChart"></canvas>
+                    <div class="financial-summary">
+                        <div class="summary-item">
+                            <span class="label">Empréstimos Ativos</span>
+                            <span class="value">R$ 1.2M</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="label">Taxa Média</span>
+                            <span class="value">12.5% a.a.</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="label">Retorno Líquido</span>
+                            <span class="value">R$ 224K</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="maintenance-sales-section">
+                <div class="maintenance-card">
+                    <div class="card-header">
+                        <h3>Análise de Manutenção</h3>
+                        <div class="maintenance-alert">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>3 alertas</span>
+                        </div>
+                    </div>
+                    <div class="maintenance-content">
+                        <canvas id="maintenanceChart"></canvas>
+                        <div class="maintenance-impact">
+                            <h4>Impacto no Fluxo de Caixa</h4>
+                            <div class="impact-items">
+                                <div class="impact-item urgent">
+                                    <span>Manutenção Corretiva</span>
+                                    <span>-R$ 45K</span>
+                                </div>
+                                <div class="impact-item planned">
+                                    <span>Manutenção Preventiva</span>
+                                    <span>-R$ 28K</span>
+                                </div>
+                                <div class="impact-item savings">
+                                    <span>Economia Projetada</span>
+                                    <span>+R$ 12K</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sales-card">
+                    <div class="card-header">
+                        <h3>Vendas vs Metas</h3>
+                        <div class="goal-status">
+                            <span class="status-indicator achieved">92% da meta</span>
+                        </div>
+                    </div>
+                    <canvas id="salesChart"></canvas>
+                    <div class="sales-breakdown">
+                        <div class="product-sales">
+                            <div class="product-item">
+                                <span class="product-name">Brita 0</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 95%"></div>
+                                </div>
+                                <span class="progress-text">95%</span>
+                            </div>
+                            <div class="product-item">
+                                <span class="product-name">Brita 1</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 88%"></div>
+                                </div>
+                                <span class="progress-text">88%</span>
+                            </div>
+                            <div class="product-item">
+                                <span class="product-name">Pedrisco</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 92%"></div>
+                                </div>
+                                <span class="progress-text">92%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="strategic-section">
+                <div class="strategic-card">
+                    <div class="card-header">
+                        <h3>Análise Estratégica de Cruzamento</h3>
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="strategic-content">
+                        <div class="insights-grid">
+                            <div class="insight-item critical">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <div class="insight-content">
+                                    <h4>Alerta Crítico</h4>
+                                    <p>Custo de manutenção de escavadeiras impactou 15% do fluxo de caixa</p>
+                                    <span class="insight-action">Revisar contrato de manutenção</span>
+                                </div>
+                            </div>
+                            <div class="insight-item opportunity">
+                                <i class="fas fa-lightbulb"></i>
+                                <div class="insight-content">
+                                    <h4>Oportunidade</h4>
+                                    <p>ROI de Brita 0 22% acima da média - aumentar produção</p>
+                                    <span class="insight-action">Otimizar alocação de recursos</span>
+                                </div>
+                            </div>
+                            <div class="insight-item warning">
+                                <i class="fas fa-chart-line"></i>
+                                <div class="insight-content">
+                                    <h4>Tendência</h4>
+                                    <p>Demanda por pedrisco crescendo 18% - ajustar estoque</p>
+                                    <span class="insight-action">Planejar aumento de produção</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/data-manager.js"></script>
 </body>
 </html>
