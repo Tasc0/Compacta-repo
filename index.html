@@ -3,467 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuarryPro - Professional Quarry Management System</title>
+    <title>QuarryPro - Modern Mining Management Platform</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-brand">
-            <h1>QuarryPro</h1>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="logo-animation">
+                <i class="fas fa-mountain"></i>
+                <span>QuarryPro</span>
+            </div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
         </div>
-        <ul class="nav-menu">
-            <li><a href="#dashboard" class="nav-link active">Dashboard</a></li>
-            <li><a href="#production" class="nav-link">Production</a></li>
-            <li><a href="#equipment" class="nav-link">Equipment</a></li>
-            <li><a href="#safety" class="nav-link">Safety</a></li>
-            <li><a href="#reports" class="nav-link">Reports</a></li>
-        </ul>
-        <button class="mobile-menu-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-mountain brand-icon"></i>
+                <span class="brand-text">QuarryPro</span>
+            </div>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="#dashboard" class="nav-link active" data-section="dashboard">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#operations" class="nav-link" data-section="operations">
+                    <i class="fas fa-cogs"></i>
+                    <span>Operations</span>
+                </a>
+                <a href="#analytics" class="nav-link" data-section="analytics">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="#equipment" class="nav-link" data-section="equipment">
+                    <i class="fas fa-truck-monster"></i>
+                    <span>Equipment</span>
+                </a>
+                <a href="#safety" class="nav-link" data-section="safety">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Safety</span>
+                </a>
+            </div>
+
+            <div class="nav-actions">
+                <button class="notification-btn" id="notificationBtn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                <div class="user-profile" id="userProfile">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" alt="Profile" class="profile-image">
+                    <span class="profile-name">John Miller</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     </nav>
 
+    <!-- Main Content -->
     <main class="main-content">
         <!-- Dashboard Section -->
-        <section id="dashboard" class="section active">
+        <section class="section active" id="dashboard">
             <div class="section-header">
-                <h2>Dashboard Overview</h2>
-                <div class="date-selector">
-                    <input type="date" id="startDate" value="2024-01-01">
-                    <input type="date" id="endDate" value="2024-12-31">
-                    <button class="btn-primary" onclick="updateDashboard()">Update</button>
+                <h1 class="section-title">
+                    <i class="fas fa-chart-pie"></i>
+                    Dashboard Overview
+                </h1>
+                <p class="section-subtitle">Real-time mining operations monitoring and insights</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-icon production">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-value" data-value="2847">0</h3>
+                        <p class="stat-label">Daily Production (tons)</p>
+                        <span class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> +12.3%
+                        </span>
+                    </div>
+                </div>
+
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stat-icon efficiency">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-value" data-value="94.2">0</h3>
+                        <p class="stat-label">Efficiency Rate (%)</p>
+                        <span class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> +3.1%
+                        </span>
+                    </div>
+                </div>
+
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stat-icon equipment">
+                        <i class="fas fa-truck-monster"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-value" data-value="23">0</h3>
+                        <p class="stat-label">Active Equipment</p>
+                        <span class="stat-change neutral">
+                            <i class="fas fa-minus"></i> 0%
+                        </span>
+                    </div>
+                </div>
+
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="stat-icon safety">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-value" data-value="147">0</h3>
+                        <p class="stat-label">Safety Score</p>
+                        <span class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> +5.8%
+                        </span>
+                    </div>
                 </div>
             </div>
 
-            <div class="kpi-grid">
-                <div class="kpi-card">
-                    <div class="kpi-icon">
-                        <i data-lucide="truck"></i>
+            <!-- Charts Grid -->
+            <div class="charts-grid">
+                <div class="chart-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="chart-header">
+                        <h3>Production Trends</h3>
+                        <div class="chart-controls">
+                            <button class="chart-btn active" data-period="7d">7D</button>
+                            <button class="chart-btn" data-period="30d">30D</button>
+                            <button class="chart-btn" data-period="90d">90D</button>
+                        </div>
                     </div>
-                    <div class="kpi-content">
-                        <h3>Daily Production</h3>
-                        <div class="kpi-value">2,450</div>
-                        <div class="kpi-unit">tonnes</div>
-                        <div class="kpi-change positive">+12.5%</div>
-                    </div>
-                </div>
-
-                <div class="kpi-card">
-                    <div class="kpi-icon">
-                        <i data-lucide="dollar-sign"></i>
-                    </div>
-                    <div class="kpi-content">
-                        <h3>Monthly Revenue</h3>
-                        <div class="kpi-value">$485,200</div>
-                        <div class="kpi-unit">USD</div>
-                        <div class="kpi-change positive">+8.3%</div>
+                    <div class="chart-container">
+                        <canvas id="productionChart"></canvas>
                     </div>
                 </div>
 
-                <div class="kpi-card">
-                    <div class="kpi-icon">
-                        <i data-lucide="settings"></i>
+                <div class="chart-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="chart-header">
+                        <h3>Equipment Status</h3>
+                        <div class="status-legend">
+                            <span class="legend-item operational"><i class="fas fa-circle"></i> Operational</span>
+                            <span class="legend-item maintenance"><i class="fas fa-circle"></i> Maintenance</span>
+                            <span class="legend-item offline"><i class="fas fa-circle"></i> Offline</span>
+                        </div>
                     </div>
-                    <div class="kpi-content">
-                        <h3>Equipment Uptime</h3>
-                        <div class="kpi-value">94.2</div>
-                        <div class="kpi-unit">%</div>
-                        <div class="kpi-change positive">+2.1%</div>
-                    </div>
-                </div>
-
-                <div class="kpi-card">
-                    <div class="kpi-icon">
-                        <i data-lucide="shield-check"></i>
-                    </div>
-                    <div class="kpi-content">
-                        <h3>Safety Score</h3>
-                        <div class="kpi-value">98.5</div>
-                        <div class="kpi-unit">%</div>
-                        <div class="kpi-change positive">+1.2%</div>
+                    <div class="chart-container">
+                        <canvas id="equipmentChart"></canvas>
                     </div>
                 </div>
             </div>
 
-            <div class="chart-grid">
-                <div class="chart-container">
-                    <h3>Production Trends</h3>
-                    <canvas id="productionChart"></canvas>
+            <!-- Recent Activity -->
+            <div class="activity-section" data-aos="fade-up" data-aos-delay="700">
+                <div class="section-header-small">
+                    <h3>Recent Activity</h3>
+                    <button class="view-all-btn">
+                        View All <i class="fas fa-arrow-right"></i>
+                    </button>
                 </div>
-                <div class="chart-container">
-                    <h3>Revenue Analysis</h3>
-                    <canvas id="revenueChart"></canvas>
-                </div>
-            </div>
-
-            <div class="dashboard-tables">
-                <div class="table-container">
-                    <h3>Recent Activities</h3>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Time</th>
-                                <th>Activity</th>
-                                <th>Status</th>
-                                <th>Details</th>
-                            </tr>
-                        </thead>
-                        <tbody id="recentActivities">
-                        </tbody>
-                    </table>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon success">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p class="activity-title">Excavator EX-001 maintenance completed</p>
+                            <p class="activity-time">2 minutes ago</p>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p class="activity-title">Low fuel alert for Dump Truck DT-007</p>
+                            <p class="activity-time">15 minutes ago</p>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon info">
+                            <i class="fas fa-info"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p class="activity-title">Production target achieved for Zone A</p>
+                            <p class="activity-time">1 hour ago</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Production Section -->
-        <section id="production" class="section">
+        <!-- Operations Section -->
+        <section class="section" id="operations">
             <div class="section-header">
-                <h2>Production Management</h2>
-                <button class="btn-primary" onclick="openModal('productionModal')">New Production Entry</button>
+                <h1 class="section-title">
+                    <i class="fas fa-cogs"></i>
+                    Operations Management
+                </h1>
+                <p class="section-subtitle">Monitor and control all mining operations in real-time</p>
             </div>
-
-            <div class="production-overview">
-                <div class="production-stats">
-                    <div class="stat-item">
-                        <h4>Today's Target</h4>
-                        <div class="stat-value">3,000 tonnes</div>
-                    </div>
-                    <div class="stat-item">
-                        <h4>Actual Production</h4>
-                        <div class="stat-value">2,450 tonnes</div>
-                    </div>
-                    <div class="stat-item">
-                        <h4>Efficiency</h4>
-                        <div class="stat-value">81.7%</div>
+            
+            <div class="operations-content">
+                <div class="operations-map">
+                    <h3>Site Overview</h3>
+                    <div class="map-placeholder">
+                        <i class="fas fa-map"></i>
+                        <p>Interactive Site Map</p>
                     </div>
                 </div>
-            </div>
-
-            <div class="chart-container">
-                <h3>Production by Material Type</h3>
-                <canvas id="materialChart"></canvas>
-            </div>
-
-            <div class="table-container">
-                <h3>Production Log</h3>
-                <div class="table-controls">
-                    <input type="text" placeholder="Search..." class="search-input">
-                    <select class="filter-select">
-                        <option value="">All Materials</option>
-                        <option value="limestone">Limestone</option>
-                        <option value="granite">Granite</option>
-                        <option value="sandstone">Sandstone</option>
-                    </select>
-                </div>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Material</th>
-                            <th>Quantity</th>
-                            <th>Quality Grade</th>
-                            <th>Shift</th>
-                            <th>Supervisor</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="productionTable">
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- Equipment Section -->
-        <section id="equipment" class="section">
-            <div class="section-header">
-                <h2>Equipment Management</h2>
-                <button class="btn-primary" onclick="openModal('equipmentModal')">Add Equipment</button>
-            </div>
-
-            <div class="equipment-grid">
-                <div class="equipment-card">
-                    <div class="equipment-status active"></div>
-                    <h4>Excavator CAT-320</h4>
-                    <div class="equipment-details">
-                        <p><strong>Status:</strong> Active</p>
-                        <p><strong>Hours:</strong> 2,340</p>
-                        <p><strong>Next Service:</strong> 150 hours</p>
-                        <p><strong>Efficiency:</strong> 95%</p>
-                    </div>
-                    <button class="btn-secondary">View Details</button>
-                </div>
-
-                <div class="equipment-card">
-                    <div class="equipment-status maintenance"></div>
-                    <h4>Crusher CR-400</h4>
-                    <div class="equipment-details">
-                        <p><strong>Status:</strong> Maintenance</p>
-                        <p><strong>Hours:</strong> 4,120</p>
-                        <p><strong>Next Service:</strong> Overdue</p>
-                        <p><strong>Efficiency:</strong> 0%</p>
-                    </div>
-                    <button class="btn-secondary">View Details</button>
-                </div>
-
-                <div class="equipment-card">
-                    <div class="equipment-status active"></div>
-                    <h4>Loader WL-544</h4>
-                    <div class="equipment-details">
-                        <p><strong>Status:</strong> Active</p>
-                        <p><strong>Hours:</strong> 1,890</p>
-                        <p><strong>Next Service:</strong> 610 hours</p>
-                        <p><strong>Efficiency:</strong> 88%</p>
-                    </div>
-                    <button class="btn-secondary">View Details</button>
-                </div>
-
-                <div class="equipment-card">
-                    <div class="equipment-status idle"></div>
-                    <h4>Drill DM-45</h4>
-                    <div class="equipment-details">
-                        <p><strong>Status:</strong> Idle</p>
-                        <p><strong>Hours:</strong> 3,200</p>
-                        <p><strong>Next Service:</strong> 300 hours</p>
-                        <p><strong>Efficiency:</strong> 92%</p>
-                    </div>
-                    <button class="btn-secondary">View Details</button>
-                </div>
-            </div>
-
-            <div class="chart-container">
-                <h3>Equipment Utilization</h3>
-                <canvas id="equipmentChart"></canvas>
-            </div>
-        </section>
-
-        <!-- Safety Section -->
-        <section id="safety" class="section">
-            <div class="section-header">
-                <h2>Safety Management</h2>
-                <button class="btn-primary" onclick="openModal('incidentModal')">Report Incident</button>
-            </div>
-
-            <div class="safety-overview">
-                <div class="safety-metrics">
-                    <div class="safety-metric">
-                        <h4>Days Without Incident</h4>
-                        <div class="metric-value">127</div>
-                    </div>
-                    <div class="safety-metric">
-                        <h4>Safety Training Completion</h4>
-                        <div class="metric-value">98%</div>
-                    </div>
-                    <div class="safety-metric">
-                        <h4>PPE Compliance</h4>
-                        <div class="metric-value">99.2%</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="safety-checklist">
-                <h3>Daily Safety Checklist</h3>
-                <div class="checklist-items">
-                    <label class="checklist-item">
-                        <input type="checkbox" checked>
-                        <span>All personnel wearing required PPE</span>
-                    </label>
-                    <label class="checklist-item">
-                        <input type="checkbox" checked>
-                        <span>Equipment pre-operation inspections completed</span>
-                    </label>
-                    <label class="checklist-item">
-                        <input type="checkbox">
-                        <span>Safety barriers properly positioned</span>
-                    </label>
-                    <label class="checklist-item">
-                        <input type="checkbox" checked>
-                        <span>Emergency exits clearly marked</span>
-                    </label>
-                </div>
-            </div>
-        </section>
-
-        <!-- Reports Section -->
-        <section id="reports" class="section">
-            <div class="section-header">
-                <h2>Reports & Analytics</h2>
-                <button class="btn-primary" onclick="generateReport()">Generate Report</button>
-            </div>
-
-            <div class="report-filters">
-                <select id="reportType">
-                    <option value="production">Production Report</option>
-                    <option value="financial">Financial Report</option>
-                    <option value="equipment">Equipment Report</option>
-                    <option value="safety">Safety Report</option>
-                </select>
-                <input type="date" id="reportStartDate">
-                <input type="date" id="reportEndDate">
-                <button class="btn-secondary" onclick="exportReport()">Export PDF</button>
-            </div>
-
-            <div class="report-content" id="reportContent">
-                <div class="report-summary">
-                    <h3>Monthly Production Summary</h3>
-                    <div class="summary-stats">
-                        <div class="summary-item">
-                            <h4>Total Production</h4>
-                            <div class="summary-value">73,500 tonnes</div>
-                        </div>
-                        <div class="summary-item">
-                            <h4>Revenue Generated</div>
-                            <div class="summary-value">$14.7M</div>
-                        </div>
-                        <div class="summary-item">
-                            <h4>Operating Costs</h4>
-                            <div class="summary-value">$8.2M</div>
-                        </div>
-                        <div class="summary-item">
-                            <h4>Profit Margin</h4>
-                            <div class="summary-value">44.2%</div>
-                        </div>
+                
+                <div class="operations-controls">
+                    <div class="control-panel">
+                        <h3>Quick Actions</h3>
+                        <button class="action-btn primary">
+                            <i class="fas fa-play"></i>
+                            Start Operations
+                        </button>
+                        <button class="action-btn secondary">
+                            <i class="fas fa-pause"></i>
+                            Pause Operations
+                        </button>
+                        <button class="action-btn danger">
+                            <i class="fas fa-stop"></i>
+                            Emergency Stop
+                        </button>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Modals -->
-    <div id="productionModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>New Production Entry</h3>
-                <span class="close" onclick="closeModal('productionModal')">&times;</span>
-            </div>
-            <form class="modal-form">
-                <div class="form-group">
-                    <label>Date</label>
-                    <input type="date" id="prodDate" required>
-                </div>
-                <div class="form-group">
-                    <label>Material Type</label>
-                    <select id="materialType" required>
-                        <option value="">Select Material</option>
-                        <option value="limestone">Limestone</option>
-                        <option value="granite">Granite</option>
-                        <option value="sandstone">Sandstone</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Quantity (tonnes)</label>
-                    <input type="number" id="quantity" required>
-                </div>
-                <div class="form-group">
-                    <label>Quality Grade</label>
-                    <select id="qualityGrade">
-                        <option value="A">Grade A</option>
-                        <option value="B">Grade B</option>
-                        <option value="C">Grade C</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Shift</label>
-                    <select id="shift">
-                        <option value="morning">Morning</option>
-                        <option value="afternoon">Afternoon</option>
-                        <option value="night">Night</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Supervisor</label>
-                    <input type="text" id="supervisor" required>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn-secondary" onclick="closeModal('productionModal')">Cancel</button>
-                    <button type="submit" class="btn-primary">Save Entry</button>
-                </div>
-            </form>
+    <!-- Floating Action Button -->
+    <div class="fab-container">
+        <button class="fab" id="fab">
+            <i class="fas fa-plus"></i>
+        </button>
+        <div class="fab-menu" id="fabMenu">
+            <button class="fab-item" data-action="add-equipment">
+                <i class="fas fa-truck"></i>
+                <span>Add Equipment</span>
+            </button>
+            <button class="fab-item" data-action="create-report">
+                <i class="fas fa-file-alt"></i>
+                <span>Create Report</span>
+            </button>
+            <button class="fab-item" data-action="schedule-maintenance">
+                <i class="fas fa-tools"></i>
+                <span>Schedule Maintenance</span>
+            </button>
         </div>
     </div>
 
-    <div id="equipmentModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Add Equipment</h3>
-                <span class="close" onclick="closeModal('equipmentModal')">&times;</span>
-            </div>
-            <form class="modal-form">
-                <div class="form-group">
-                    <label>Equipment Name</label>
-                    <input type="text" id="equipmentName" required>
-                </div>
-                <div class="form-group">
-                    <label>Type</label>
-                    <select id="equipmentType" required>
-                        <option value="">Select Type</option>
-                        <option value="excavator">Excavator</option>
-                        <option value="crusher">Crusher</option>
-                        <option value="loader">Loader</option>
-                        <option value="drill">Drill</option>
-                        <option value="truck">Truck</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Model</label>
-                    <input type="text" id="equipmentModel">
-                </div>
-                <div class="form-group">
-                    <label>Purchase Date</label>
-                    <input type="date" id="purchaseDate">
-                </div>
-                <div class="form-group">
-                    <label>Service Interval (hours)</label>
-                    <input type="number" id="serviceInterval">
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn-secondary" onclick="closeModal('equipmentModal')">Cancel</button>
-                    <button type="submit" class="btn-primary">Add Equipment</button>
-                </div>
-            </form>
+    <!-- Notification Panel -->
+    <div class="notification-panel" id="notificationPanel">
+        <div class="notification-header">
+            <h3>Notifications</h3>
+            <button class="close-btn" id="closeNotifications">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
-    </div>
-
-    <div id="incidentModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Report Safety Incident</h3>
-                <span class="close" onclick="closeModal('incidentModal')">&times;</span>
+        <div class="notification-list">
+            <div class="notification-item unread">
+                <div class="notification-icon warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="notification-content">
+                    <p class="notification-title">Equipment Maintenance Due</p>
+                    <p class="notification-message">Excavator EX-003 requires scheduled maintenance</p>
+                    <p class="notification-time">10 minutes ago</p>
+                </div>
             </div>
-            <form class="modal-form">
-                <div class="form-group">
-                    <label>Incident Date</label>
-                    <input type="datetime-local" id="incidentDate" required>
+            <div class="notification-item">
+                <div class="notification-icon success">
+                    <i class="fas fa-check"></i>
                 </div>
-                <div class="form-group">
-                    <label>Severity Level</label>
-                    <select id="severityLevel" required>
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                        <option value="critical">Critical</option>
-                    </select>
+                <div class="notification-content">
+                    <p class="notification-title">Production Goal Achieved</p>
+                    <p class="notification-message">Daily production target exceeded by 15%</p>
+                    <p class="notification-time">2 hours ago</p>
                 </div>
-                <div class="form-group">
-                    <label>Location</label>
-                    <input type="text" id="incidentLocation" required>
-                </div>
-                <div class="form-group">
-                    <label>Description</label>
-                    <textarea id="incidentDescription" rows="4" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Personnel Involved</label>
-                    <input type="text" id="personnelInvolved">
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn-secondary" onclick="closeModal('incidentModal')">Cancel</button>
-                    <button type="submit" class="btn-primary">Submit Report</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 
